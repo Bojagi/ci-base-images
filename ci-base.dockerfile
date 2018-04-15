@@ -1,6 +1,10 @@
 ### comes with docker, gcloud and kubectl ###
 FROM google/cloud-sdk:190.0.1
 
+### aws
+RUN apt-get update && apt install -y python-pip
+RUN pip install awscli && mkdir ~/.aws
+
 ### helm
 ENV HELM_VERSION=v2.8.2
 RUN curl -L http://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz | tar zxv -C /tmp \
