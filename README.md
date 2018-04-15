@@ -6,6 +6,7 @@ Following tools are preinstalled:
 
 * docker
 * gcloud
+* aws cli
 * kubernetes
 * helm
 * node
