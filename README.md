@@ -5,9 +5,6 @@ contains useful base docker images.
 Following tools are preinstalled:
 
 * docker
-* gcloud
 * aws cli
-* kubernetes
-* helm
 * node
 * lerna
