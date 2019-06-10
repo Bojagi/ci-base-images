@@ -1,18 +1,22 @@
-### comes with docker, gcloud and kubectl ###
-FROM google/cloud-sdk:190.0.1
+FROM node:10
+
+ENV  DOCKER_VERSION="17.05.0-ce"
+ENV  COMPOSE_VERSION="1.13.0"
+ENV  LERNA_VERSION="3.4.3"
+ENV  NPM_CONFIG_LOGLEVEL warn
 
 ### aws
 RUN apt-get update && apt install -y python-pip
 RUN pip install awscli && mkdir ~/.aws
 
-### NODE ###
-RUN   curl -sL https://deb.nodesource.com/setup_10.x | bash - && \ 
-  apt-get update && apt-get install -y nodejs build-essential && node --version
+# docker and docker compose
+RUN curl -L -o /tmp/docker-$DOCKER_VERSION.tgz https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION.tgz && \
+  tar -xz -C /tmp -f /tmp/docker-$DOCKER_VERSION.tgz && \
+  mv /tmp/docker/* /usr/bin
+RUN curl -L https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && \
+  chmod +x /usr/local/bin/docker-compose
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-   apt-get update && apt-get install yarn && yarn --version
-
-# ### node based apps ###
+### node based apps ###
 RUN yarn global add \
-  lerna
+  lerna@${LERNA_VERSION}
+
