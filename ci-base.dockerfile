@@ -6,7 +6,7 @@ ENV  LERNA_VERSION="3.4.3"
 ENV  NPM_CONFIG_LOGLEVEL warn
 
 # base services
-RUN apt-get update && apt-get install -yq wget gnupg openssl ranger vim curl
+RUN apt-get update && apt-get install -yq wget gnupg openssl ranger vim curl git
 
 ### aws
 RUN apt-get update && apt install -y python-pip
